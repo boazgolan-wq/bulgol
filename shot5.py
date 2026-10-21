@@ -14,7 +14,7 @@ async def main():
     await pg.click('[data-open] >> nth=0');await pg.wait_for_timeout(300)
     await pg.wait_for_selector('.hero .pill.done',timeout=30000);await pg.wait_for_timeout(1000);await pg.screenshot(path='screenshots/v5-3-ft-reveal.png',full_page=True)
     await pg.wait_for_timeout(1500);await pg.screenshot(path='screenshots/v5-4-ft-table-moves.png',full_page=True)
-    await pg.wait_for_selector('.ballpop',timeout=8000);await pg.wait_for_timeout(900);await pg.screenshot(path='screenshots/v5-5-ball.png')
+    await pg.wait_for_selector('.ballpop',timeout=8000);await pg.wait_for_timeout(900);await pg.screenshot(path='screenshots/v5-fix-ball.png');print('BALL',await pg.inner_text('.ballpop'))
     await pg.click('[data-act=close]');await pg.click('[data-tab=me]');await pg.screenshot(path='screenshots/v5-6-notif-button.png',full_page=True)
     await pg.click('[data-tab=home]');await pg.click('[data-act=sharem] >> nth=0');await pg.fill('#fn','דני <b>');await pg.fill('#fp','052-123-4567');await pg.click('[data-act=iadd]');await pg.fill('#fn','Rina');await pg.click('[data-act=iadd]');await pg.wait_for_timeout(300);await pg.screenshot(path='screenshots/v5-invite.png')
     print('rows',await pg.locator('.frow').count(),await pg.inner_text('.flist'));await pg.click('[data-act=close]')

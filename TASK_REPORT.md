@@ -51,3 +51,4 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 - Share sheet (js/invite.js): saved friends (localStorage `bgFriends`, max 50, sanitized + escaped), Contact Picker (`navigator.contacts.select`, Android Chrome only, hidden elsewhere with a note), "send to selected" (1 phone → wa.me, several → sms:, none → navigator.share), copy link, and regular share.
 - New strings: 13 languages for reveal/notifications; he/en for the share sheet (others fall back to English).
 - Screenshots: screenshots/v5-*.png
+- v5 fix: after FT every result text says 'X ניצחה 2:1' / 'תיקו' (resTxt, 13 langs) on Ball popup, share card, hero, toast, notification; looser FT detection from TheSportsDB.
