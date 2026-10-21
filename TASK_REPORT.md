@@ -52,3 +52,4 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 - New strings: 13 languages for reveal/notifications; he/en for the share sheet (others fall back to English).
 - Screenshots: screenshots/v5-*.png
 - v5 fix: after FT every result text says 'X ניצחה 2:1' / 'תיקו' (resTxt, 13 langs) on Ball popup, share card, hero, toast, notification; looser FT detection from TheSportsDB.
+- v5 fix: Hebrew team names for TheSportsDB fixtures (ALIAS_HE in js/data.js, fallback English), RTL fixture rows with <bdi>.
