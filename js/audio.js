@@ -1,0 +1,4 @@
+'use strict';
+let AC=null;function ac(){if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();return AC;}
+function applause(sec=3){try{const c=ac(),n=c.currentTime;for(let i=0;i<90;i++){const t=n+Math.random()*sec,len=0.04,b=c.createBuffer(1,c.sampleRate*len,c.sampleRate),d=b.getChannelData(0);for(let j=0;j<d.length;j++)d[j]=(Math.random()*2-1)*Math.pow(1-j/d.length,3);const s=c.createBufferSource();s.buffer=b;const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=900+Math.random()*1800;const g=c.createGain();g.gain.value=0.25+Math.random()*0.4*(1-(t-n)/sec);s.connect(f).connect(g).connect(c.destination);s.start(t);}}catch(e){}}
+function whistle(){try{const c=ac(),o=c.createOscillator(),g=c.createGain();o.frequency.value=2800;o.connect(g).connect(c.destination);g.gain.setValueAtTime(.15,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.5);o.start();o.stop(c.currentTime+.5);}catch(e){}}

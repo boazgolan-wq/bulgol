@@ -1,0 +1,25 @@
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#0b1f14;color:#eef;padding-bottom:70px}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:10px 12px;background:#0a3d1f}.top b{flex:1;font-size:18px}
+#mypts{background:#ffd54a;color:#222;border-radius:12px;padding:2px 8px;font-weight:700;font-size:13px}
+button{font:inherit;border:0;border-radius:10px;padding:9px 14px;background:#22c55e;color:#06210f;font-weight:700;cursor:pointer}
+button.ghost{background:transparent;color:#eef;border:1px solid #3a5;padding:6px 10px}button.sm{padding:5px 9px;font-size:13px}button.gold{background:#ffd54a}
+button:disabled{opacity:.45}#bell{position:relative}#nbadge{position:absolute;top:-4px;left:-4px;background:#ef4444;color:#fff;border-radius:9px;font-size:11px;font-style:normal;padding:0 5px}#nbadge:empty{display:none}
+.sponsor{background:#132;color:#9b9;text-align:center;font-size:12px;padding:4px}
+main{padding:12px;max-width:560px;margin:auto}
+.card{background:#14301f;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px #0005}
+h2{margin:4px 0 10px;font-size:19px}h3{margin:6px 0;font-size:16px}small,.muted{color:#9bb}
+.match{display:flex;align-items:center;justify-content:space-between;gap:6px}.team{flex:1;text-align:center;font-weight:700}.team i{display:block;font-size:26px;font-style:normal}
+.score{font-size:26px;font-weight:800;min-width:70px;text-align:center}.pill{display:inline-block;border-radius:8px;padding:2px 7px;font-size:12px;background:#264}.live{background:#dc2626;color:#fff}.done{background:#555}
+.stake{background:#2a2410;color:#ffe08a;border-radius:8px;padding:6px 8px;margin-top:8px;font-size:14px}
+label{display:block;margin:8px 0 3px;font-size:14px;color:#cdd}select,input{width:100%;font:inherit;padding:9px;border-radius:9px;border:1px solid #365;background:#0e2216;color:#eef}
+.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}
+.tabs{position:fixed;bottom:0;left:0;right:0;display:flex;background:#0a3d1f;border-top:1px solid #265;z-index:5}.tabs button{flex:1;background:none;color:#cde;border-radius:0;padding:8px 2px;font-size:11px;font-weight:600}.tabs button.on{color:#ffd54a}.tabs b{display:block;font-size:20px}
+table{width:100%;border-collapse:collapse}td,th{padding:7px 4px;border-bottom:1px solid #254;text-align:start}tr.me{background:#1d4a2c}
+.chat{max-height:220px;overflow:auto;background:#0e2216;border-radius:9px;padding:8px;margin-bottom:8px}.chat p{margin:4px 0}.chat b{color:#7dd3a0}
+.feed p{margin:3px 0;font-size:14px}.badges{display:flex;flex-wrap:wrap;gap:8px}.badge{background:#0e2216;border-radius:10px;padding:8px;text-align:center;width:30%;font-size:12px}.badge.off{opacity:.35}.badge i{display:block;font-size:26px;font-style:normal}
+.ad{border:1px dashed #577;color:#8aa;text-align:center;padding:16px;border-radius:10px;font-size:13px;margin-bottom:12px}
+.modal{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:20;padding:16px}.modal.show{display:flex}.modal .card{max-width:420px;width:100%;text-align:center}
+.ballpop .ball{font-size:80px;animation:spin 1.2s ease-out}.ballpop h2{font-size:24px;color:#ffd54a}@keyframes spin{from{transform:scale(.2) rotate(-360deg)}to{transform:none}}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:8px 14px;border-radius:10px;opacity:0;transition:.3s;z-index:40}#toast.show{opacity:1}
+.chk{display:flex;gap:6px;align-items:center;margin:6px 0}.chk input{width:auto}
