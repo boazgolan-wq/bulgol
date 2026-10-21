@@ -15,7 +15,7 @@ const Tester={
   const have=new Set(S.matches.map(m=>String(m.real||'')));let lg,m;const base={id:'m'+Date.now()+rnd(999),stake:'',state:'pre',minute:0,sh:0,sa:0,y:0,r:0,c:0,firstSc:null,preds:{},chat:[],feed:[],byBot:1};
   const pool=[];Object.keys(fixCache).forEach(k=>(fixCache[k]||[]).forEach(e=>{const ko=Date.parse(e.strTimestamp+'Z');if(ko-LOCK5>Date.now()&&ko-WIN<Date.now()&&!have.has(String(e.idEvent)))pool.push([k,e,ko]);}));
   if(pool.length){pool.sort((a,b)=>a[2]-b[2]);const [k,e,ko]=pool[rnd(Math.min(4,pool.length))];lg=k;m={...base,lg,real:String(e.idEvent).replace(/\D/g,''),home:'|'+e.strHomeTeam,away:'|'+e.strAwayTeam,hb:safeUrl(e.strHomeTeamBadge),ab:safeUrl(e.strAwayTeamBadge),ko};}
-  else{const ks=Object.keys(LEAGUES);lg=ks[rnd(ks.length)];const ts=LEAGUES[lg].teams;const h=rnd(ts.length);let a=rnd(ts.length);if(a===h)a=(h+1)%ts.length;m={...base,lg,home:ts[h],away:ts[a],ko:Date.now()+(2+rnd(3))*60000};}
+  else{const ks=Object.keys(LEAGUES);lg=ks[rnd(ks.length)];const ts=LEAGUES[lg].teams;const h=rnd(ts.length);let a=rnd(ts.length);if(a===h)a=(h+1)%ts.length;m={...base,lg,home:ts[h],away:ts[a],ko:Date.now()+36e5,manual:1};}
   FRIENDS.slice(0,2+rnd(3)).forEach(f=>m.preds[f]=botPred(!!m.real));m.preds[BOT]=this.pred(m);this.say(m,'botOpenChat');
   S.matches.push(m);notify('🤖 '+t('botOpened')+' '+nm(m.home)+' – '+nm(m.away)+' — '+t('botJoinUs'));toast('🤖 '+t('botOpened')+' '+nm(m.home)+' – '+nm(m.away));save();if(tab==='home')render();},
  goal(m,side){return;/* no live leaks: tester reacts only at FT */if(!this.on()||!m.preds[BOT]||Math.random()<.3)return;const p=m.preds[BOT];const mine=Math.sign(p.h-p.a)===(side==='h'?1:-1);this.say(m,mine?'botGoalYes':'botGoalNo',{x:nm(side==='h'?m.home:m.away)});},
