@@ -79,3 +79,21 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 **Chosen: TheSportsDB free** — the only free option with current-season data for both Israel and Europe. No secret key → no proxy needed (worker/ holds a ready, not deployed, Cloudflare Worker for a future paid API-Football key).
 **Connected:** Champions League added (league 4480); live score + minute on real matches in play (one shared livescore call per 2 min, cached 90s); FT reveal from lookupevent + timeline (first scorer + minute, cards). When the timeline is missing (Israeli league) or capped (5 events), `noEv` = card points are not given; scorer pick counts by team when the first scorer is known only by side. 1h lock, squads, no joker, real sounds, my own game untouched. v=19.
 **Dry run (dryrun.py, screenshots/v20-dry-*):** Tottenham 3:1 Coventry (EPL, 19.10) → first scorer James Maddison 14', 3🟨 shown, Ball of the Match to the exact-score+scorer pick (10 pts). Hapoel Be'er Sheva 2:1 Hapoel Jerusalem (Israel, 18.10) → result/scoring OK, no scorer/cards from provider. Live: Estudiantes de Mérida 0:0 Caracas 5' (Copa Venezuela, the only live match at 00:15) shown in the hero.
+
+## 2026-10-22 — Squads rebuilt (v20–v24)
+- All 110 teams in data/squads.json were rebuilt. Each team now has a `src` field (its source URL) and a `kind` field (club or league).
+- Sources: 51 teams came from the official club site. 59 came from an official league site, used where the club page was blocked, missing or unreadable:
+  - Israel: football.co.il for Hapoel Haifa, Be'er Sheva, Tiberias and Ramat Gan.
+  - Premier League data API.
+  - laliga.com.
+  - legaseriea.it.
+  - bundesliga.com.
+  - ligue1.com.
+- Israeli clubs were done first (commit e064ed2): 10 teams from their Hebrew club pages and 4 from the league site. English aliases come from football.co.il/en player pages.
+- Hebrew display covers 100% of names (3,317). The Hebrew comes from three places:
+  - the club or league Hebrew page (Israeli clubs);
+  - Hebrew Wikipedia sitelinks or Wikidata Hebrew labels;
+  - rule-based transliteration, about 1,350 names, mostly lesser-known and youth players.
+- The English name is kept as a hidden alias (`p[0]`), so first-scorer matching still works. The positions label is shown in Hebrew.
+- The squads cache key and the `?v` value were bumped on each push. The 1h lock, the squads card and the joker removal are untouched.
+- Screenshot: screenshots/v24-squads-card.png
