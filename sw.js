@@ -1,6 +1,6 @@
 'use strict';
 // BulGol service worker: notifications only (no caching).
-// v9 2026-10-21: lock at kickoff; v8: predictions open anytime: joker removed, squads card
+// v10 2026-10-21: lock 1h before kickoff; v8: predictions open anytime: joker removed, squads card
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
 self.addEventListener('push',e=>{let d={};try{d=e.data?e.data.json():{};}catch(_){d={body:e.data&&e.data.text()};}
