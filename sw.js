@@ -1,6 +1,6 @@
 'use strict';
 // BulGol service worker: notifications only (no caching).
-// v6 2026-10-21: joker removed
+// v7 2026-10-21: joker removed, squads card
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
 self.addEventListener('push',e=>{let d={};try{d=e.data?e.data.json():{};}catch(_){d={body:e.data&&e.data.text()};}
