@@ -1,4 +1,4 @@
-'use strict';const DEMO_BALL=new URLSearchParams(location.search).get('demo')==='ball';let fLg=localStorage.bgFlg||'all',fTime=localStorage.bgFt||'all';
+'use strict';fetch('index.html?nc='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(h=>{const m=h.match(/app\.js\?v=(\d+)/),cur=(document.querySelector('script[src*="app.js"]')||{}).src||'';if(m&&!cur.includes('v='+m[1])&&!sessionStorage.bgReloaded){sessionStorage.bgReloaded=1;location.replace(location.pathname+location.search+(location.search?'&':'?')+'r='+m[1]);}}).catch(()=>{});const DEMO_BALL=new URLSearchParams(location.search).get('demo')==='ball';let fLg=localStorage.bgFlg||'all',fTime=localStorage.bgFt||'all';
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

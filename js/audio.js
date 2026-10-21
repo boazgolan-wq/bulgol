@@ -6,9 +6,13 @@ function finalWhistle(){try{const c=ac();if(c.state==='suspended')c.resume();con
 // Real recorded crowd sounds (CC0, Freesound), decoded into the shared WebAudio context so they play once audio is unlocked by a tap.
 // chant(): fans singing/clapping in the stands (Ball of the Match) - freesound.org/s/588617 (Urkki69, CC0)
 // roar(): stadium goal roar (correct guess / celebration) - freesound.org/s/829455 (itmightgetloud, CC0)
-const SND={ball:'sounds/ball-of-match.m4a?v=16',goal:'sounds/goal-roar.m4a?v=16'},SBUF={};
-function loadSnd(k){if(!SBUF[k])SBUF[k]=fetch(SND[k]).then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>ac().decodeAudioData(b,ok,no))).catch(e=>{delete SBUF[k];throw e;});return SBUF[k];}
-function playSnd(k){try{const c=ac();if(c.state==='suspended')c.resume();loadSnd(k).then(buf=>{const s=c.createBufferSource();s.buffer=buf;s.connect(c.destination);s.start();}).catch(()=>{});}catch(e){}}
+const SNDV='17',SND={ball:'sounds/ball-of-match',goal:'sounds/goal-roar'},SEL={};
+// HTMLAudioElement (works on iOS Safari without WebAudio decode). m4a first, mp3 fallback. No synth fallback: on failure play nothing and log.
+function sndEl(k){if(SEL[k])return SEL[k];const el=new Audio();el.preload='auto';const srcs=[SND[k]+'.m4a?v='+SNDV,SND[k]+'.mp3?v='+SNDV];let i=0;
+ const canM4a=el.canPlayType('audio/mp4');if(!canM4a)i=1;el.src=srcs[i];el.addEventListener('error',()=>{if(i<srcs.length-1){el.src=srcs[++i];el.load();}else console.warn('[sound] failed to load',k,srcs);});return SEL[k]=el;}
+function playSnd(k){try{const el=sndEl(k);el.pause();el.currentTime=0;const p=el.play();console.log('[sound] play',k,el.src);if(p&&p.catch)p.catch(e=>console.warn('[sound] play failed',k,e&&e.message));}catch(e){console.warn('[sound] error',k,e);}}
+function unlockSnd(){['ball','goal'].forEach(k=>{const el=sndEl(k);el.muted=true;const p=el.play();const r=()=>{el.pause();el.currentTime=0;el.muted=false;};if(p&&p.then)p.then(r,r);else r();});}
+addEventListener('pointerdown',unlockSnd,{once:true,capture:true});
 function roar(){playSnd('goal');}
 function chant(){playSnd('ball');}
 function cheer(sec){roar(sec);}

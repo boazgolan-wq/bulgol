@@ -1,5 +1,6 @@
 'use strict';
 // BulGol service worker: notifications only (no caching).
+// v17 2026-10-22: real CC0 crowd recordings; no caching (no fetch handler)
 // v11 2026-10-21: squads from official club sites, Hebrew names; v10 2026-10-21: lock 1h before kickoff; v8: predictions open anytime: joker removed, squads card
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
