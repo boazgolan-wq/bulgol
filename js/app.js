@@ -13,7 +13,7 @@ const rnd=n=>Math.floor(Math.random()*n);
 const vib=n=>{try{navigator.vibrate&&navigator.vibrate(n);}catch(e){}};
 let tab='home',cur=null,popId=null,prevRank={},fixCache={};
 const initials=n=>esc(String(n).replace(/[^\p{L}\p{N} ]/gu,'').split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase());
-const WIN=48*36e5,LOCK5=5*36e5;const lockAt=m=>m.real?m.ko-LOCK5:m.ko;const notYet=m=>false;const closed=m=>m.state!=='pre'||((m.real||m.custom)&&Date.now()>=lockAt(m));const lockMsg=m=>m.real&&m.state==='pre'?t('locked5'):t('locked');
+const WIN=48*36e5,LOCK5=5*36e5;const lockAt=m=>m.ko;const notYet=m=>false;const closed=m=>m.state!=='pre'||((m.real||m.custom)&&Date.now()>=lockAt(m));const lockMsg=m=>t('locked');
 function opensIn(m){const l=Math.max(0,m.ko-WIN-Date.now()),d=Math.floor(l/864e5),h=Math.floor(l%864e5/36e5),mi=Math.floor(l%36e5/6e4);return t('opensIn')+' '+(d?d+'d ':'')+h+'h '+mi+'m';}
 const hue=n=>[...String(n)].reduce((a,c)=>a+c.charCodeAt(0)*7,0)%360;
 function crest(team,url){const n=nm(team),u=safeUrl(url||BADGE_URL[String(team).split('|')[1]]);const fb=`<span class="crest fb" data-h="${hue(n)}">${initials(n)}</span>`;return u?`<img class="crest" alt="" loading="lazy" src="${esc(u)}/tiny" data-fb="${initials(n)}" data-h="${hue(n)}">`:fb;}
