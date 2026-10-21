@@ -66,3 +66,16 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 - 21.10.2026 — באג 'מסך משחק תקוע': חלון פתיחה של 48 שעות חסם ניחושים במשחקים אמיתיים; הוסר — אפשר לנחש מיד עד הנעילה (5 שעות לפני). cache-bust v=8
 - 21.10.2026 — נעילת ניחושים בשריקת הפתיחה (במקום 5 שעות לפני) למשחקים אמיתיים ומשלי; v=9
 - 21.10.2026 — נעילת ניחושים שעה לפני שריקת הפתיחה (אמיתי + משלי), הודעה עודכנה ב-13 שפות; v=10
+
+## v20 — real data provider (22.10.2026)
+**Provider comparison (free tiers, checked 22.10.2026):**
+| Provider | Israeli league | Top-5 + UCL | Live | Scorers+minute | Cards | Catch |
+|---|---|---|---|---|---|---|
+| TheSportsDB (key 123) | ✅ fixtures+results | ✅ | ✅ livescore.php (~1 min) | ✅ top leagues, ❌ Israel | ⚠️ timeline capped at 5 events | public key, no signup |
+| API-Football free | ✅ (all data) | ✅ | ✅ | ✅ | ✅ | **free plan blocked for current season** ("try from 2022 to 2024") → unusable; Pro $19/mo |
+| football-data.org free | ❌ | ✅ 12 comps | ❌ delayed | ❌ (Deep Data paid) | ❌ | key needed |
+| Sportmonks free | ❌ | ❌ (Danish + Scottish only) | | | | |
+| SofaScore / FotMob / ESPN | unofficial, no license — rejected | | | | | |
+**Chosen: TheSportsDB free** — the only free option with current-season data for both Israel and Europe. No secret key → no proxy needed (worker/ holds a ready, not deployed, Cloudflare Worker for a future paid API-Football key).
+**Connected:** Champions League added (league 4480); live score + minute on real matches in play (one shared livescore call per 2 min, cached 90s); FT reveal from lookupevent + timeline (first scorer + minute, cards). When the timeline is missing (Israeli league) or capped (5 events), `noEv` = card points are not given; scorer pick counts by team when the first scorer is known only by side. 1h lock, squads, no joker, real sounds, my own game untouched. v=19.
+**Dry run (dryrun.py, screenshots/v20-dry-*):** Tottenham 3:1 Coventry (EPL, 19.10) → first scorer James Maddison 14', 3🟨 shown, Ball of the Match to the exact-score+scorer pick (10 pts). Hapoel Be'er Sheva 2:1 Hapoel Jerusalem (Israel, 18.10) → result/scoring OK, no scorer/cards from provider. Live: Estudiantes de Mérida 0:0 Caracas 5' (Copa Venezuela, the only live match at 00:15) shown in the hero.

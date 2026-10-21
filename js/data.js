@@ -5,6 +5,7 @@ const LEAGUES={
  liga:{he:'לה ליגה',en:'La Liga',teams:['ריאל מדריד|Real Madrid','ברצלונה|Barcelona','אתלטיקו מדריד|Atlético Madrid','סביליה|Sevilla']},
  seriea:{he:'סרייה A',en:'Serie A',teams:['אינטר|Inter','מילאן|Milan','יובנטוס|Juventus','נאפולי|Napoli','רומא|Roma']},
  bund:{he:'בונדסליגה',en:'Bundesliga',teams:['באיירן מינכן|Bayern Munich','בורוסיה דורטמונד|Dortmund','לברקוזן|Leverkusen','לייפציג|Leipzig']},
+ cl:{he:'ליגת האלופות',en:'Champions League',teams:['ריאל מדריד|Real Madrid','באיירן מינכן|Bayern Munich','ארסנל|Arsenal','אינטר|Inter','פ.ס.ז\'|PSG','ברצלונה|Barcelona']},
  l1:{he:'ליגה 1',en:'Ligue 1',teams:['פ.ס.ז\'|PSG','מארסיי|Marseille','ליון|Lyon','מונאקו|Monaco']}};
 const PLAYERS=['שחקן 9|Striker #9','שחקן 10|Playmaker #10','שחקן 7|Winger #7','שחקן 11|Winger #11','בלם 4|Defender #4','קשר 8|Midfielder #8'];
 const FRIENDS=['דני','יוסי','מאיה','ליאם','רוני','עומר'];
