@@ -32,3 +32,13 @@ create policy lm_read on league_members for select using(in_league(league_id));
 -- points are written only by a server job (service role / Edge Function at full time), never by clients: no client update policy on predictions.points.
 revoke update on predictions from authenticated, anon; grant update(pick,updated_at) on predictions to authenticated;
 revoke update on matches from authenticated, anon; grant update(stake,state) on matches to authenticated; -- result/winner written by server job only
+
+-- v5: Web Push subscriptions (one row per browser endpoint; owner-only via RLS)
+create table if not exists push_subscriptions(endpoint text primary key check(endpoint like 'https://%'),user_id uuid not null default auth.uid() references profiles(id) on delete cascade,p256dh text not null,auth text not null,created_at timestamptz default now());
+alter table push_subscriptions enable row level security;
+create policy push_sel on push_subscriptions for select using(user_id=auth.uid());
+create policy push_ins on push_subscriptions for insert with check(user_id=auth.uid());
+create policy push_upd on push_subscriptions for update using(user_id=auth.uid()) with check(user_id=auth.uid());
+create policy push_del on push_subscriptions for delete using(user_id=auth.uid());
+-- The notify-ft Edge Function reads this table with the service role key (server-side secret, never in the repo).
+alter table matches add column if not exists home_score int, add column if not exists away_score int; -- final score written at FT, used by notify-ft

@@ -65,3 +65,4 @@ tr{position:relative}tr.me{background:linear-gradient(90deg,#22c55e33,transparen
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}.filters select{flex:1;min-width:140px}.seg{display:flex;gap:4px}.seg .on{background:#ffd54a;color:#111}.qp{display:flex;gap:6px;align-items:center;justify-content:center;margin-top:8px;direction:ltr}.qp input{width:52px;text-align:center}
+.isheet .flist{max-height:40vh;overflow:auto;margin:8px 0}.isheet .frow{display:flex;align-items:center;gap:8px}.isheet .frow span{flex:1}.isheet .row input{min-width:0}.isheet button{margin-top:6px}

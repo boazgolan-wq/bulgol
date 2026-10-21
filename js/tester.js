@@ -18,10 +18,11 @@ const Tester={
   else{const ks=Object.keys(LEAGUES);lg=ks[rnd(ks.length)];const ts=LEAGUES[lg].teams;const h=rnd(ts.length);let a=rnd(ts.length);if(a===h)a=(h+1)%ts.length;m={...base,lg,home:ts[h],away:ts[a],ko:Date.now()+(2+rnd(3))*60000};}
   FRIENDS.slice(0,2+rnd(3)).forEach(f=>m.preds[f]=botPred(!!m.real));m.preds[BOT]=this.pred(m);this.say(m,'botOpenChat');
   S.matches.push(m);notify('🤖 '+t('botOpened')+' '+nm(m.home)+' – '+nm(m.away)+' — '+t('botJoinUs'));toast('🤖 '+t('botOpened')+' '+nm(m.home)+' – '+nm(m.away));save();if(tab==='home')render();},
- goal(m,side){if(!this.on()||!m.preds[BOT]||Math.random()<.3)return;const p=m.preds[BOT];const mine=Math.sign(p.h-p.a)===(side==='h'?1:-1);this.say(m,mine?'botGoalYes':'botGoalNo',{x:nm(side==='h'?m.home:m.away)});},
- card(m,red){if(!this.on()||!m.preds[BOT]||Math.random()<(red?.2:.75))return;this.say(m,red?'botRed':'botYellow');},
+ goal(m,side){return;/* no live leaks: tester reacts only at FT */if(!this.on()||!m.preds[BOT]||Math.random()<.3)return;const p=m.preds[BOT];const mine=Math.sign(p.h-p.a)===(side==='h'?1:-1);this.say(m,mine?'botGoalYes':'botGoalNo',{x:nm(side==='h'?m.home:m.away)});},
+ card(m,red){return;if(!this.on()||!m.preds[BOT]||Math.random()<(red?.2:.75))return;this.say(m,red?'botRed':'botYellow');},
  ft(m){if(!this.on()||!m.preds[BOT])return;const b=m.preds[BOT].pts||0,me=m.preds[S.me];this.say(m,me&&me.pts>b?'botFtLose':b>0?'botFtWin':'botFtZero',{p:b});},
  picked(m){if(!this.on()||!m||!m.preds[BOT])return;const me=m.preds[S.me],b=m.preds[BOT];setTimeout(()=>{this.say(m,Math.sign(me.h-me.a)===Math.sign(b.h-b.a)?'botSame':'botDiff',{s:b.h+':'+b.a});save();if(tab==='match'&&cur===m.id){const c=$('#chat');if(c)updateLiveDom(m);}else toast('🤖 '+t('botReacted'));},1500);},
+ banter(m){if(!this.on()||!m||!m.preds[BOT])return;this.say(m,'botBanter');},
  duel(d){if(this.on()&&d.vs===BOT){d.acc=1;notify('🤖 '+t('botDuel'));}},
  tick(){try{this.joinAll();this.open();}catch(e){}},
  start(){this.sync();save();setTimeout(()=>this.tick(),20000);(function loop(){setTimeout(()=>{Tester.tick();loop();},60000+rnd(60000));})();}};

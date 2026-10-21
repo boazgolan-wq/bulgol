@@ -40,3 +40,14 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 - 21.10 ברירת מחדל עברית (שפה אחרת רק בבחירה ידנית או ?lang=)
 - 2026-10-21 21:18 חבר בוחן מדומה 'בוחן 🤖 (מדומה)' (js/tester.js): מתג ב'אני' (ברירת מחדל פעיל); כל 1–2 דק' פותח משחק אם יש פחות מ-3 פעילים (מתיקון fixtures שבמטמון, אחרת סימולציה) + התראה; מצטרף לכל משחק עם ניחוש; צ'אט לפני משחק/גולים/כרטיסים/סיום; מגיב לניחוש; בדירוג, ליגות, דו־קרבות (מקבל אתגר). בלי בקשות API נוספות; 13 שפות.
 - 2026-10-21 21:21 חלון ניחושים: נפתח 48 ש' לפני המשחק ("נפתחים בעוד…"), נסגר 5 ש' לפני משחק אמיתי (ספירה לאחור + 'הניחושים נסגרו 5 שעות לפני המשחק'); משחקי סימולציה ננעלים בשריקה. רשימת fixtures כוללת גם eventsnextleague (עד 30). כפתור 📤 שתף משחק בכל כרטיס ובדף משחק; קישור ?m=&d= פותח ישר את המשחק אצל חבר (מסונן ומאומת). 13 שפות.
+
+## v5 — FT single reveal, notifications, invite sheet
+- During a match: card/hero show "in progress" (⏳), no score, no event feed, no mid-match table moves; live next-scorer card hidden (code kept, inert). Kick-off whistle kept.
+- Full time: one reveal — final score + goal/card timeline, all picks scored, table animates up/down (FLIP), Ball of the Match popup, celebration, then final whistle.
+- Real matches: no mid-match polling. First API call at kickoff+110 min, then every 5 min until FT (`FT_AFTER`/`FT_EVERY` in js/app.js).
+- Simulation runs silently and reveals at 90'. Tester bot and friends only banter during play; tester reacts at FT.
+- Notifications: `sw.js` (scope ./) + `js/push.js`. Permission is asked only on a user gesture (button on the "אני" screen, or after your first prediction). At FT it shows who won and the top predictor via `registration.showNotification`, with an in-app toast fallback.
+- Web Push for a closed app is prepared but **NOT ACTIVE until Supabase is connected** and `CONFIG.VAPID_PUBLIC_KEY` is set: `push_subscriptions` table + RLS in supabase/schema.sql, `supabase/functions/notify-ft` (draft; VAPID private key/NOTIFY_SECRET are set as Supabase secrets, never in the repo). Clicking a notification opens `?m=<id>`.
+- Share sheet (js/invite.js): saved friends (localStorage `bgFriends`, max 50, sanitized + escaped), Contact Picker (`navigator.contacts.select`, Android Chrome only, hidden elsewhere with a note), "send to selected" (1 phone → wa.me, several → sms:, none → navigator.share), copy link, and regular share.
+- New strings: 13 languages for reveal/notifications; he/en for the share sheet (others fall back to English).
+- Screenshots: screenshots/v5-*.png
