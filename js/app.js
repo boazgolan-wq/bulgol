@@ -82,7 +82,7 @@ function quickPick(id,box){const m=S.matches.find(x=>x.id===id);if(!m||closed(m)
 function pick(){const m=S.matches.find(x=>x.id===cur);if(closed(m))return toast(lockMsg(m));if(notYet(m))return toast('⏳ '+opensIn(m));const p={h:Math.min(15,Math.max(0,+$('#ph').value||0)),a:Math.min(15,Math.max(0,+$('#pa').value||0)),y:+$('#py').value||0,c:m.real?0:(+$('#pc').value||0),r:$('#pr').checked,j:$('#pj').checked};if(m.real)p.st=$('#psc').value.trim().slice(0,40);else p.sc=+$('#psc').value;m.preds[S.me]=p;badge('first');save();vib(20);toast('✅ '+t('saved'));Tester.picked(m);Push.maybeAsk();render();}
 // ---- simulation engine: time-based, survives leaving the screen / reload ----
 const TICK=600;
-function startLive(m){if(m.state!=='pre'||m.real)return;m.state='live';m.simStart=Date.now();m.minute=0;m.ko=Math.min(m.ko,Date.now());whistle();m.feed.push("0' "+(S.lang==='he'?'שריקת פתיחה!':'Kick-off!'));notify('🔒 '+nm(m.home)+' – '+nm(m.away)+': '+t('locked'));save();if(tab==='match'&&cur===m.id)render();}
+function startLive(m){if(m.state!=='pre'||m.real)return;m.state='live';m.simStart=Date.now();m.minute=0;m.ko=Math.min(m.ko,Date.now());whistle();notify('🔒 '+nm(m.home)+' – '+nm(m.away)+': '+t('locked'));save();if(tab==='match'&&cur===m.id)render();}
 function simStep(m){m.minute+=3;const r=Math.random();let goal=false;
  if(r<.09){const side=Math.random()<.55?'h':'a';side==='h'?m.sh++:m.sa++;const s=rnd(6);if(m.firstSc==null)m.firstSc=s;m.feed.push(m.minute+"' ⚽ "+nm(side==='h'?m.home:m.away)+' — '+nm(PLAYERS[s]));goal=true;}
  else if(r<.2){m.y++;m.feed.push(m.minute+"' 🟨");}else if(r<.22){m.r++;m.feed.push(m.minute+"' 🟥");}else if(r<.4)m.c++;

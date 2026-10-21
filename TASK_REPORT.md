@@ -53,3 +53,4 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 - Screenshots: screenshots/v5-*.png
 - v5 fix: after FT every result text says 'X ניצחה 2:1' / 'תיקו' (resTxt, 13 langs) on Ball popup, share card, hero, toast, notification; looser FT detection from TheSportsDB.
 - v5 fix: Hebrew team names for TheSportsDB fixtures (ALIAS_HE in js/data.js, fallback English), RTL fixture rows with <bdi>.
+- Removed the written kick-off line ('0' שריקת פתיחה!') from the match timeline; whistle sound kept.
