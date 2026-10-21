@@ -1,5 +1,4 @@
-const DEMO_BALL=new URLSearchParams(location.search).get('demo')==='ball';
-'use strict';let fLg=localStorage.bgFlg||'all',fTime=localStorage.bgFt||'all';
+'use strict';const DEMO_BALL=new URLSearchParams(location.search).get('demo')==='ball';let fLg=localStorage.bgFlg||'all',fTime=localStorage.bgFt||'all';
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
