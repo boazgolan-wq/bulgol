@@ -63,3 +63,4 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
   Coverage: il 14/14 teams, 468 players, 46% Hebrew names; epl 20/20, 766, 62%; liga 20/20, 678, 59%; seriea 20/20, 833, 43%; bund 18/18, 642, 45%; l1 18/18, 593, 35%. Missing Hebrew names fall back to English. Squad lists may include loanees/youth.
 - 21.10.2026 — ג'וקר הוסר לגמרי (UI, ניקוד x2, תג, טקסטים ב-13 שפות); cache-bust v=6
 - 21.10.2026 — כרטיס 'סגלים' בכל משחק אמיתי (נפתח גם לפני פתיחת הניחושים); cache-bust v=7
+- 21.10.2026 — באג 'מסך משחק תקוע': חלון פתיחה של 48 שעות חסם ניחושים במשחקים אמיתיים; הוסר — אפשר לנחש מיד עד הנעילה (5 שעות לפני). cache-bust v=8
