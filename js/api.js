@@ -1,9 +1,10 @@
 'use strict';
-const SQV=34;
+const SQV=35;
 // Real fixtures/results from TheSportsDB (free public key, CORS enabled).
 const API={base:()=>'https://www.thesportsdb.com/api/v1/json/'+CONFIG.SPORTSDB_KEY+'/',
- leagueIds:{il:4644,epl:4328,liga:4335,seriea:4332,bund:4331,l1:4334,cl:4480},
- async j(p){const r=await fetch(API.base()+p);if(!r.ok)throw new Error(r.status);return r.json();},
+ leagueIds:{il:4644,epl:4328,liga:4335,seriea:4332,bund:4331,l1:4334,cl:4480,el:4481},
+ // free key is rate-limited: retry 429 / network blips with backoff; short in-memory cache per URL
+ _jc:{},async j(p){const c=API._jc[p];if(c&&Date.now()-c.t<6e4)return c.v;for(let i=0;;i++){try{const r=await fetch(API.base()+p);if(r.status===429&&i<3){await new Promise(z=>setTimeout(z,2500*(i+1)));continue;}if(!r.ok)throw new Error(r.status);const v=await r.json();API._jc[p]={t:Date.now(),v};return v;}catch(e){if(i>=2)throw e;await new Promise(z=>setTimeout(z,2000));}}},
  async fixtures(lg){const id=API.leagueIds[lg];const n=await API.j('eventsnextleague.php?id='+id);const ev=(n.events||[])[0];if(!ev)return[];const r=+ev.intRound,s=ev.strSeason;
   const out=[];(n.events||[]).forEach(e=>{if(e.strStatus==='NS'||!e.intHomeScore)out.push(e);});for(const rr of [r,r+1]){const d=await API.j(`eventsround.php?id=${id}&r=${rr}&s=${encodeURIComponent(s)}`);(d.events||[]).forEach(e=>{if(out.some(x=>x.idEvent===e.idEvent))return;if(e.strStatus==='NS'||!e.intHomeScore)out.push(e);});}
   out.sort((x,y)=>Date.parse(x.strTimestamp+'Z')-Date.parse(y.strTimestamp+'Z'));return out.filter(e=>Date.parse(e.strTimestamp+'Z')>Date.now()-6e6).slice(0,30);},
@@ -13,7 +14,7 @@ const API={base:()=>'https://www.thesportsdb.com/api/v1/json/'+CONFIG.SPORTSDB_K
  _static:null,
  async staticSq(){if(API._static)return API._static;try{const r=await fetch('data/squads.json?v='+SQV);API._static=r.ok?await r.json():{};}catch(e){API._static={};}return API._static;},
  // squad = static (public squad pages, names+positions) when complete enough, TheSportsDB free key otherwise; TSDB photos matched by name. Cached 7 days.
- async squad(tid){tid=String(tid||'').replace(/\D/g,'');if(!tid)return[];const k='bgSq34_'+tid;try{const c=JSON.parse(localStorage.getItem(k)||'null');if(c&&Date.now()-c.ts<7*864e5)return c.p;}catch(e){}
+ async squad(tid){tid=String(tid||'').replace(/\D/g,'');if(!tid)return[];const k='bgSq35_'+tid;try{const c=JSON.parse(localStorage.getItem(k)||'null');if(c&&Date.now()-c.ts<7*864e5)return c.p;}catch(e){}
   let ts=[];try{const d=await API.j('lookup_all_players.php?id='+tid);ts=(d.player||[]).filter(x=>x.strPlayer&&!/coach|manager|staff/i.test(x.strPosition||'')).map(x=>({n:String(x.strPlayer).slice(0,40),pos:String(x.strPosition||'').slice(0,30),img:safeUrl(x.strCutout||x.strThumb||'')}));}catch(e){}
   const st=((await API.staticSq())[tid]||{}).p||[];let p=ts;
   if(st.length>=Math.max(12,ts.length)){const key=s=>norm(s).split(' ').pop();const ph={};ts.forEach(x=>{if(x.img)ph[key(x.n)]=x.img;});p=st.map(([n,pos,he])=>({n:String(n).slice(0,40),he:he?String(he).slice(0,40):'',pos:String(pos).slice(0,30),img:ph[key(n)]||''}));}
@@ -24,4 +25,4 @@ const API={base:()=>'https://www.thesportsdb.com/api/v1/json/'+CONFIG.SPORTSDB_K
   const goals=tl.filter(t=>t.strTimeline==='Goal').sort((a,b)=>(+a.intTime||0)-(+b.intTime||0));
   const fg=goals[0];const noEv=ft&&(!tl.length||tl.length>=5);/* free key: timeline missing (Israeli league) or capped at 5 entries -> card counts unreliable, not scored */return{noEv,status:e.strStatus,firstSide:fg?(/yes/i.test(fg.strHome||'')?'h':'a'):null,has:e.intHomeScore!=null&&e.intHomeScore!=='',ft,sh:+e.intHomeScore||0,sa:+e.intAwayScore||0,firstScorer:goals[0]?goals[0].strPlayer:null,
    y:tl.filter(t=>/yellow/i.test(t.strTimelineDetail||'')).length,r:tl.filter(t=>/red/i.test(t.strTimelineDetail||'')).length,
-   events:tl.map(t=>`${t.intTime||''}' ${t.strTimeline==='Goal'?'⚽':/red/i.test(t.strTimelineDetail)?'🟥':'🟨'} ${t.strPlayer||''}`)};}};
+   events:tl.filter(t=>t.strTimeline==='Goal'||/card/i.test(t.strTimeline+' '+(t.strTimelineDetail||''))).sort((x,y)=>(+x.intTime||0)-(+y.intTime||0)).map(t=>`${t.intTime||''}' ${t.strTimeline==='Goal'?(/own/i.test(t.strTimelineDetail||'')?'⚽(OG)':'⚽'):/red/i.test(t.strTimelineDetail)?'🟥':'🟨'} ${t.strPlayer||''}`)};}};

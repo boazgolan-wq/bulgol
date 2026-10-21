@@ -103,3 +103,15 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 - 123 non-player/duplicate entries removed (site menu/stat labels, coaches, staff); 3,194 players remain.
 - 14 short forms expanded (11 LaLiga Hebrew full names, 3 EPL aliases renamed). Toulouse initials (e.g. "T. Collin") left as-is, since the source gives no full name.
 - English aliases kept. Live squads.json verified to match the repo (md5), SQV=34.
+
+## v35 — real data end-to-end (22.10.2026, TheSportsDB free key 123, no paid worker deployed)
+- Real fixtures are the default (no demo matches on first run; simulation only if chosen). Europa League (4481) added: today's Union SG – Hapoel Be'er Sheva shows with Hebrew names.
+- Live score/minute via livescore.php; FT via lookupevent + timeline. Timeline now filtered to goals/cards (substitutions/VAR were shown as 🟨), own goals marked.
+- Scorer names shown in Hebrew from data/squads.json ("25' ⚽ אברצ'י אזה (Eberechi Eze)"); a Hebrew free-text scorer pick is matched to the English provider name.
+- Israel / missing events: if the provider gives a score but no scorer, the match creator gets a "confirm result" card (pre-filled score, first scorer, cards). Otherwise it is auto-scored 12h after kick-off. If there is no result at all 4h after kick-off, the creator can enter it manually. In Europe a missing timeline is polled again for up to 6h.
+- API calls retry on 429/network errors with a 60s in-memory cache.
+- Verified (e2e_real.py, screenshots/v35-*): fixtures IL 14 / EL 30 / EPL 20. Created a real match Union SG – Hapoel Be'er Sheva (22.10, 19:45 IL).
+  - Dry run Bayern 2:2 Arsenal (CL, 21.10): first scorer Eze. The pick "אזה" scored 10 pts with the Ball of the Match.
+  - Dry run Hapoel Be'er Sheva 2:1 Hapoel Jerusalem (IL, 18.10): manual scorer זלאטנוביץ' + 4🟨, 12 pts, Ball of the Match.
+  - Live: Mixco–Municipal 0:0 21'.
+- Kept: 1h lock, no joker, ×1.5 bold, stake line, my own game, 0:0 default, real sounds. v=35.
