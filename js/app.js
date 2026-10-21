@@ -161,5 +161,11 @@ Cloud.captureToken();importInvite();render();engine();setInterval(engine,TICK);p
 // CSP-safe styling: apply data-driven styles via CSSOM (no inline style attributes)
 function applyStyles(root){root.querySelectorAll('[data-h]').forEach(e=>e.style.setProperty('--h',e.dataset.h));root.querySelectorAll('[data-w]').forEach(e=>e.style.width=e.dataset.w+'%');}
 new MutationObserver(()=>applyStyles(document.body)).observe(document.body,{childList:true,subtree:true});applyStyles(document.body);
-// Demo: ?demo=ball — two buttons (tap needed for mobile audio): Ball of the Match popup + chant, and celebration + roar. Repeatable.
-if(DEMO_BALL){addEventListener('load',()=>{const dm={id:'demo-ball',state:'done',home:'מכבי תל אביב',away:'הפועל באר שבע',sh:2,sa:1,winner:'בועז',preds:{'בועז':{pts:25}}};const w=document.createElement('div');w.style.cssText='position:fixed;left:0;right:0;bottom:24px;display:flex;gap:12px;justify-content:center;z-index:99999';const mk=(txt,fn)=>{const b=document.createElement('button');b.textContent=txt;b.className='gold';b.style.cssText='font-size:22px;padding:14px 18px';b.onclick=()=>{try{ac().resume();}catch(e){}$('#modal').classList.remove('show');fn();};w.appendChild(b);};mk('⚽ כדור המשחק',()=>ballPopup(dm));mk('🎉 חגיגה',()=>celebrate(dm,true));document.body.appendChild(w);});}
+// Demo: ?demo=ball — one tap anywhere plays Ball of the Match (popup + chant), then the celebration (fireworks + goal roar). Two small buttons replay each.
+if(DEMO_BALL){addEventListener('load',()=>{const dm={id:'demo-ball',state:'done',home:'מכבי תל אביב',away:'הפועל באר שבע',sh:2,sa:1,winner:'בועז',preds:{'בועז':{pts:25}}};
+ const ball=()=>ballPopup(dm),party=()=>{$('#modal').classList.remove('show');celebrate(dm,true);};let tmr;
+ const ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;color:#fff;font-size:34px;font-weight:bold';ov.textContent='▶️ הפעל — גע במסך';
+ ov.onclick=()=>{ov.remove();try{ac().resume();}catch(e){}ball();tmr=setTimeout(party,7500);w.style.display='flex';};
+ const w=document.createElement('div');w.style.cssText='position:fixed;left:8px;bottom:84px;display:none;flex-direction:column;gap:6px;z-index:99999';
+ const mk=(txt,fn)=>{const b=document.createElement('button');b.textContent=txt;b.className='gold';b.style.cssText='font-size:13px;padding:6px 10px';b.onclick=e=>{e.stopPropagation();clearTimeout(tmr);$('#modal').classList.remove('show');try{ac().resume();}catch(_){}fn();};w.appendChild(b);};
+ mk('⚽ כדור המשחק',ball);mk('🎉 חגיגה',party);document.body.append(ov,w);});}
