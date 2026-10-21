@@ -38,3 +38,4 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 - 21.10 הוספת 6 קבוצות ליגת העל + לוגואים
 - 2026-10-21 21:01 v3: celebration (fireworks+applause+13-lang toast) on correct result, kick-off whistle (sim+real), 3-blast final whistle (WebAudio), single scrollable match list with league/time filters + inline quick prediction; 13 langs.
 - 21.10 ברירת מחדל עברית (שפה אחרת רק בבחירה ידנית או ?lang=)
+- 2026-10-21 21:18 חבר בוחן מדומה 'בוחן 🤖 (מדומה)' (js/tester.js): מתג ב'אני' (ברירת מחדל פעיל); כל 1–2 דק' פותח משחק אם יש פחות מ-3 פעילים (מתיקון fixtures שבמטמון, אחרת סימולציה) + התראה; מצטרף לכל משחק עם ניחוש; צ'אט לפני משחק/גולים/כרטיסים/סיום; מגיב לניחוש; בדירוג, ליגות, דו־קרבות (מקבל אתגר). בלי בקשות API נוספות; 13 שפות.
