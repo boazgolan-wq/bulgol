@@ -5,7 +5,7 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const safeUrl=u=>/^https:\/\/(r2\.)?thesportsdb\.com\//.test(u||'')?u:'';
 const KEY='bulgol_v1';
 let S=JSON.parse(localStorage.getItem(KEY)||'null')||{me:'בועז גולן',fan:'מכבי תל אביב|Maccabi Tel Aviv',matches:[],totals:{},badges:{},notifs:[],leagues:[{id:'l1',name:"החבר'ה מהמשרד",members:['בועז גולן',...FRIENDS.slice(0,4)]}],duels:[],fanPts:{}};
-S.lang=S.lang||detectLang();S.stats=S.stats||{played:0,right:0,exact:0,streak:0,best:0};
+{const q=new URLSearchParams(location.search).get('lang');if(q&&T[q]){S.lang=q;S.langSet=1;}else if(!S.langSet)S.lang='he';}S.stats=S.stats||{played:0,right:0,exact:0,streak:0,best:0};
 const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
 const t=k=>(T[S.lang]&&T[S.lang][k])||T.en[k]||k;
 const nm=x=>{const p=String(x).split('|');return S.lang==='he'?p[0]:(p[1]||p[0]);};
@@ -132,7 +132,7 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-tab],[dat
  else if(a==='magic'){const em=$('#email').value.trim();if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em))Cloud.magic(em).then(()=>toast('📧 ✓'));}
  else if(a==='prem'){$('#mcard').innerHTML=`<h2>💎 ${t('premium')}</h2><p>${t('premTxt')}</p><button data-act="close">${t('close')}</button>`;$('#modal').classList.add('show');}
  else if(a==='reset'){localStorage.removeItem(KEY);location.reload();}});
-$('#langsel').onchange=e=>{S.lang=e.target.value;save();render();};
+$('#langsel').onchange=e=>{S.lang=e.target.value;S.langSet=1;save();render();};
 $('#bell').onclick=()=>{$('#mcard').innerHTML=`<h2>🔔 ${t('notif')}</h2><div class="nlist">${S.notifs.slice(0,15).map(n=>`<p>${esc(n.m)}</p>`).join('')||t('noNotif')}</div><button data-act="close">${t('close')}</button>`;S.notifs.forEach(n=>n.r=1);save();hdr();$('#modal').classList.add('show');};
 // migrate v1 sim matches that were live without simStart
 S.matches.forEach(m=>{if(m.state==='live'&&!m.real&&!m.simStart)m.simStart=Date.now()-m.minute/3*TICK;});
