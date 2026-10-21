@@ -97,3 +97,9 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 - The English name is kept as a hidden alias (`p[0]`), so first-scorer matching still works. The positions label is shown in Hebrew.
 - The squads cache key and the `?v` value were bumped on each push. The 1h lock, the squads card and the joker removal are untouched.
 - Screenshot: screenshots/v24-squads-card.png
+
+### 2026-10-22 — Hebrew name polish (v30–v34)
+- 773 rule-transliterated names respelled to Israeli sports-media style (EPL 108, LaLiga 138, Serie A 181, Bundesliga 158, Ligue 1 188).
+- 123 non-player/duplicate entries removed (site menu/stat labels, coaches, staff); 3,194 players remain.
+- 14 short forms expanded (11 LaLiga Hebrew full names, 3 EPL aliases renamed). Toulouse initials (e.g. "T. Collin") left as-is, since the source gives no full name.
+- English aliases kept. Live squads.json verified to match the repo (md5), SQV=34.
