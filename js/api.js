@@ -4,8 +4,8 @@ const API={base:()=>'https://www.thesportsdb.com/api/v1/json/'+CONFIG.SPORTSDB_K
  leagueIds:{il:4644,epl:4328,liga:4335,seriea:4332,bund:4331,l1:4334},
  async j(p){const r=await fetch(API.base()+p);if(!r.ok)throw new Error(r.status);return r.json();},
  async fixtures(lg){const id=API.leagueIds[lg];const n=await API.j('eventsnextleague.php?id='+id);const ev=(n.events||[])[0];if(!ev)return[];const r=+ev.intRound,s=ev.strSeason;
-  const out=[];for(const rr of [r,r+1]){const d=await API.j(`eventsround.php?id=${id}&r=${rr}&s=${encodeURIComponent(s)}`);(d.events||[]).forEach(e=>{if(e.strStatus==='NS'||!e.intHomeScore)out.push(e);});}
-  return out.filter(e=>Date.parse(e.strTimestamp+'Z')>Date.now()-6e6).slice(0,20);},
+  const out=[];(n.events||[]).forEach(e=>{if(e.strStatus==='NS'||!e.intHomeScore)out.push(e);});for(const rr of [r,r+1]){const d=await API.j(`eventsround.php?id=${id}&r=${rr}&s=${encodeURIComponent(s)}`);(d.events||[]).forEach(e=>{if(out.some(x=>x.idEvent===e.idEvent))return;if(e.strStatus==='NS'||!e.intHomeScore)out.push(e);});}
+  out.sort((x,y)=>Date.parse(x.strTimestamp+'Z')-Date.parse(y.strTimestamp+'Z'));return out.filter(e=>Date.parse(e.strTimestamp+'Z')>Date.now()-6e6).slice(0,30);},
  async result(id){const d=await API.j('lookupevent.php?id='+id);const e=(d.events||[])[0];if(!e)return null;
   const ft=['FT','AET','PEN','Match Finished'].includes(e.strStatus);let tl=[];
   if(e.intHomeScore!=null){try{tl=(await API.j('lookuptimeline.php?id='+id)).timeline||[];}catch(x){}}
