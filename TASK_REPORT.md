@@ -35,3 +35,4 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 4. Crest images come from TheSportsDB (community-sourced) and are team trademarks; check licensing before a store launch.
 5. Whether the repo stays public or goes private.
 - Work rule: every request goes into the task list or report as soon as it's decided to do it.
+- 21.10 הוספת 6 קבוצות ליגת העל + לוגואים
