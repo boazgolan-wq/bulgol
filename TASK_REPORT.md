@@ -55,3 +55,9 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 - v5 fix: Hebrew team names for TheSportsDB fixtures (ALIAS_HE in js/data.js, fallback English), RTL fixture rows with <bdi>.
 - Removed the written kick-off line ('0' שריקת פתיחה!') from the match timeline; whistle sound kept.
 - Sim matches no longer auto-start: predictions form stays open, '▶️ התחל משחק' starts a silent ~75s sim, then FT reveal. Ball of the Match only after FT reveal, only if you predicted, shown once (ballShown).
+- Prediction score inputs default to 0:0.
+- Custom match "✍️ משחק משלי": typed teams (sanitized, 40 chars, autocomplete badges), date/time, lock at kickoff, creator-only "הזן תוצאה סופית" → normal FT reveal; share link carries teams/time.
+- Two crowd sounds: roar() for FT celebration, chant() ("o-le" + drums + horn) for Ball of the Match (js/audio.js, synthesized).
+- First-scorer picker: real names from squads (forwards first), photos from TheSportsDB only, search, quick options אף אחד (0:0)/home/away + free text. Exact player 2 pts, team only 1 pt. Editable until kickoff.
+- Squads: TheSportsDB free key returns only ≤10 players/team (Hapoel Ramat Gan 0), so data/squads.json (Wikipedia club squad lists; names+positions, Hebrew names via he.wikipedia langlinks) is used; TSDB photos are matched by surname. Cache 7 days. Generator: tools/he.py.
+  Coverage: il 14/14 teams, 468 players, 46% Hebrew names; epl 20/20, 766, 62%; liga 20/20, 678, 59%; seriea 20/20, 833, 43%; bund 18/18, 642, 45%; l1 18/18, 593, 35%. Missing Hebrew names fall back to English. Squad lists may include loanees/youth.

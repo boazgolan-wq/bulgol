@@ -13,3 +13,12 @@ Object.entries({"he": {"pickContacts": "בחר מאנשי הקשר", "noPicker":
 
 // FT result wording
 Object.entries({"he": {"wonRes": "ניצחה", "drawRes": "תיקו"}, "en": {"wonRes": "won", "drawRes": "Draw"}, "es": {"wonRes": "ganó", "drawRes": "Empate"}, "fr": {"wonRes": "a gagné", "drawRes": "Match nul"}, "de": {"wonRes": "gewann", "drawRes": "Unentschieden"}, "ar": {"wonRes": "فاز", "drawRes": "تعادل"}, "ru": {"wonRes": "победил", "drawRes": "Ничья"}, "zh": {"wonRes": "获胜", "drawRes": "平局"}, "pt": {"wonRes": "venceu", "drawRes": "Empate"}, "it": {"wonRes": "ha vinto", "drawRes": "Pareggio"}, "ja": {"wonRes": "の勝利", "drawRes": "引き分け"}, "hi": {"wonRes": "जीता", "drawRes": "ड्रॉ"}, "tr": {"wonRes": "kazandı", "drawRes": "Beraberlik"}}).forEach(([l,o])=>{if(T[l])Object.assign(T[l],o);});
+
+// custom match
+Object.entries({"he": {"custom": "משחק משלי", "cTeam": "שם קבוצה", "cWhen": "מועד שריקת הפתיחה", "cNote": "הניחושים ננעלים בשריקת הפתיחה. אחרי הפתיחה רק אתה מזין את התוצאה הסופית.", "cBad": "צריך שתי קבוצות שונות", "enterFT": "הזן תוצאה סופית", "ftSave": "שמור תוצאה וחשוף"}, "en": {"custom": "My own match", "cTeam": "Team name", "cWhen": "Kick-off date & time", "cNote": "Predictions lock at kick-off. After kick-off only you enter the final result.", "cBad": "Enter two different teams", "enterFT": "Enter final result", "ftSave": "Save result & reveal"}}).forEach(([l,o])=>{if(T[l])Object.assign(T[l],o);});
+
+// first scorer
+Object.entries({"he": {"noGoal": "אין שער / שער עצמי", "otherName": "שם שחקן אחר (לא חובה)"}, "en": {"noGoal": "No goal / own goal", "otherName": "Other player name (optional)"}}).forEach(([l,o])=>{if(T[l])Object.assign(T[l],o);});
+
+// scorer picker
+Object.entries({"he": {"fsNone": "אף אחד (0:0)", "fsHome": "שחקן של הבית", "fsAway": "שחקן של החוץ", "fsSearch": "חפש שחקן לפי שם", "fsPts": "שחקן מדויק = 2 נק' · קבוצה בלבד = 1 נק' · אפשר לשנות עד שריקת הפתיחה"}, "en": {"fsNone": "Nobody (0:0)", "fsHome": "A home player", "fsAway": "An away player", "fsSearch": "Search player by name", "fsPts": "Exact player = 2 pts · team only = 1 pt · change until kick-off"}}).forEach(([l,o])=>{if(T[l])Object.assign(T[l],o);});
