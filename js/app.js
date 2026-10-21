@@ -161,3 +161,5 @@ Cloud.captureToken();importInvite();render();engine();setInterval(engine,TICK);p
 // CSP-safe styling: apply data-driven styles via CSSOM (no inline style attributes)
 function applyStyles(root){root.querySelectorAll('[data-h]').forEach(e=>e.style.setProperty('--h',e.dataset.h));root.querySelectorAll('[data-w]').forEach(e=>e.style.width=e.dataset.w+'%');}
 new MutationObserver(()=>applyStyles(document.body)).observe(document.body,{childList:true,subtree:true});applyStyles(document.body);
+// Demo: ?demo=ball shows the Ball of the Match winner popup + crowd chant (tap required for mobile audio)
+if(new URLSearchParams(location.search).get('demo')==='ball'){addEventListener('load',()=>{const b=document.createElement('button');b.textContent='▶️ הפעל';b.className='gold';b.style.cssText='position:fixed;inset:auto 0 0 0;top:45%;margin:auto;width:220px;height:80px;font-size:30px;z-index:99999';document.body.appendChild(b);b.onclick=()=>{b.remove();try{ac().resume();}catch(e){}ballPopup({id:'demo-ball',state:'done',home:'מכבי תל אביב',away:'הפועל באר שבע',sh:2,sa:1,winner:'בועז',preds:{'בועז':{pts:25}}});};});}
