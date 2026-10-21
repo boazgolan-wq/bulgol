@@ -61,3 +61,4 @@ CSP (scripts and styles only from the site; images and API calls only from TheSp
 - First-scorer picker: real names from squads (forwards first), photos from TheSportsDB only, search, quick options אף אחד (0:0)/home/away + free text. Exact player 2 pts, team only 1 pt. Editable until kickoff.
 - Squads: TheSportsDB free key returns only ≤10 players/team (Hapoel Ramat Gan 0), so data/squads.json (Wikipedia club squad lists; names+positions, Hebrew names via he.wikipedia langlinks) is used; TSDB photos are matched by surname. Cache 7 days. Generator: tools/he.py.
   Coverage: il 14/14 teams, 468 players, 46% Hebrew names; epl 20/20, 766, 62%; liga 20/20, 678, 59%; seriea 20/20, 833, 43%; bund 18/18, 642, 45%; l1 18/18, 593, 35%. Missing Hebrew names fall back to English. Squad lists may include loanees/youth.
+- 21.10.2026 — ג'וקר הוסר לגמרי (UI, ניקוד x2, תג, טקסטים ב-13 שפות); cache-bust v=6

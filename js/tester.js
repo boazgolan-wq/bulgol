@@ -6,7 +6,7 @@ const Tester={
  on(){return S.botOn!==false;},
  say(m,k,vars){if(!this.on()||!m)return;let s=t(k);if(Array.isArray(s))s=s[rnd(s.length)];s=String(s);Object.entries(vars||{}).forEach(([a,b])=>s=s.split('{'+a+'}').join(b));m.chat.push({n:BOT,m:s.slice(0,200)});},
  sync(){S.leagues.forEach(l=>{const i=l.members.indexOf(BOT);if(this.on()&&i<0)l.members.push(BOT);if(!this.on()&&i>=0)l.members.splice(i,1);});},
- pred(m){const h=rnd(4),a=rnd(3);const p={h,a,y:2+rnd(4),c:7+rnd(6),r:Math.random()<.15,j:Math.random()<.2};
+ pred(m){const h=rnd(4),a=rnd(3);const p={h,a,y:2+rnd(4),c:7+rnd(6),r:Math.random()<.15};
   if(Math.random()<.15){p.h=0;p.a=1+rnd(2);}// sometimes a bold away pick
   p.sf=['h','a','h','n'][rnd(4)];p.st='';return p;},
  join(m){if(!this.on()||!m||m.preds[BOT]||m.state==='done')return;if((m.state!=='pre'||(m.real&&Date.now()>=lockAt(m)))&&!m.byBot)return;const p=this.pred(m);m.preds[BOT]=p;this.say(m,'botPre',{x:p.h>p.a?nm(m.home):p.h<p.a?nm(m.away):p.h+':'+p.a});},
